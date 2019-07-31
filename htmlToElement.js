@@ -77,7 +77,7 @@ export default function htmlToElement (rawHtml, customOpts = {}, done) {
   // dom 转 rn
   function domToElement (dom, parent) {
     if (!dom) return null
-    return dom.map((node, index, list) => {
+    return dom.map((node, index) => {
       let NodeComponent = null
       let ShareNewsTextParagraphRand = util.MathRand(6)
       const nodeKey = 'nodeKey-' + index
