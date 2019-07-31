@@ -259,7 +259,7 @@ export default function htmlToElement (rawHtml, customOpts = {}, done) {
             break
           case 'video':
             NodeComponent = (
-              <View key={nodeKey} style={{ minHeight: 280 }}>
+              <View key={nodeKey} style={util.filtersCss(opts.styles, node)}>
                 <Video
                   controls={true}
                   source={{ uri: node.attribs.src }}

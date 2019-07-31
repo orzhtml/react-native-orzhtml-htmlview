@@ -27,7 +27,8 @@ const baseStyles = StyleSheet.create({
   h3: { fontWeight: 'bold', fontSize: 24 },
   h4: { fontWeight: 'bold', fontSize: 18 },
   h5: { fontWeight: 'bold', fontSize: 14 },
-  h6: { fontWeight: 'bold', fontSize: 12 }
+  h6: { fontWeight: 'bold', fontSize: 12 },
+  video: { minHeight: 260 }
 })
 
 class HtmlView extends React.PureComponent {
