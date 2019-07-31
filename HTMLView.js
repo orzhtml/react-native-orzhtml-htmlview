@@ -22,12 +22,12 @@ const baseStyles = StyleSheet.create({
   pre: codeStyle,
   code: codeStyle,
   a: { fontWeight: 'normal' },
-  h1: { fontWeight: 'bold', fontSize: 36 },
-  h2: { fontWeight: 'bold', fontSize: 30 },
-  h3: { fontWeight: 'bold', fontSize: 24 },
-  h4: { fontWeight: 'bold', fontSize: 18 },
-  h5: { fontWeight: 'bold', fontSize: 14 },
-  h6: { fontWeight: 'bold', fontSize: 12 },
+  h1: { fontWeight: 'bold', fontSize: 36, lineHeight: 36 },
+  h2: { fontWeight: 'bold', fontSize: 30, lineHeight: 32 },
+  h3: { fontWeight: 'bold', fontSize: 24, lineHeight: 26 },
+  h4: { fontWeight: 'bold', fontSize: 18, lineHeight: 22 },
+  h5: { fontWeight: 'bold', fontSize: 14, lineHeight: 20 },
+  h6: { fontWeight: 'bold', fontSize: 12, lineHeight: 18 },
   video: { minHeight: 260 }
 })
 
