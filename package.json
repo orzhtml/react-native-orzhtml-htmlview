@@ -1,0 +1,49 @@
+{
+  "name": "react-native-orzhtml-htmlview",
+  "version": "1.0.0",
+  "description": "A React Native component which renders HTML content as native views",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/orzhtml/react-native-orzhtml-htmlview.git"
+  },
+  "keywords": [
+    "react",
+    "react-native",
+    "html",
+    "html-parser",
+    "html-renderer",
+    "react-component"
+  ],
+  "author": "orzhtml",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/orzhtml/react-native-orzhtml-htmlview/issues"
+  },
+  "homepage": "https://github.com/orzhtml/react-native-orzhtml-htmlview#readme",
+  "dependencies": {
+    "entities": "^2.0.0",
+    "htmlparser2": "^3.10.1",
+    "prop-types": "^15.7.2",
+    "react-native-video": "^5.0.0",
+    "teaset": "^0.6.3"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.2",
+    "babel-jest": "^24.8.0",
+    "eslint": "^6.1.0",
+    "eslint-config-standard": "^13.0.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.14.3",
+    "eslint-plugin-react-native": "^3.7.0",
+    "eslint-plugin-standard": "^4.0.0"
+  }
+}
