@@ -12,6 +12,7 @@ import {
 import { Promise } from 'es6-promise'
 import { getStatusBarHeight } from 'react-native-status-bar-height'
 import HTMLView from 'react-native-orzhtml-htmlview'
+// import HTMLView from './libs'
 
 const ios = Platform.OS === 'ios'
 const statusHeight = ios ? getStatusBarHeight() : StatusBar.currentHeight
@@ -311,7 +312,7 @@ class Example extends React.Component {
 
   render () {
     const { htmlSource, fontSize } = this.state
-
+    // console.log(entities.decodeHTML(htmlSource))
     return (
       <View style={styles.container}>
         <View
@@ -403,6 +404,7 @@ class Example extends React.Component {
             style={{
               flex: 1
             }}
+            debug={true}
             html={htmlSource}
             fontSize={fontSize}
             imagesMaxWidth={sw - 30}
@@ -434,6 +436,7 @@ class Example extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: '#fff',
     flex: 1
   }
 })

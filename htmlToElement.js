@@ -416,7 +416,6 @@ export default function htmlToElement (rawHtml, customOpts = {}, done) {
   const parser = new htmlparser2.Parser(handler, {
     decodeEntities: true
   })
-  console.log('rawHtml: ', rawHtml)
   parser.write(rawHtml ? util.resetHtml(rawHtml) : '')
   parser.done()
 }

@@ -1,3 +1,3 @@
-import HTMLView from './libs'
+import HTMLView from './HTMLView'
 
 export default HTMLView
