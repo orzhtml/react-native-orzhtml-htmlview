@@ -10,6 +10,7 @@
     "es6-promise": "^4.2.8",
     "react": "16.8.3",
     "react-native": "0.59.10",
+    "react-native-orzhtml-htmlview": "https://github.com/orzhtml/react-native-orzhtml-htmlview.git",
     "react-native-status-bar-height": "^2.3.1"
   },
   "devDependencies": {
