@@ -28,6 +28,7 @@
   },
   "homepage": "https://github.com/orzhtml/react-native-orzhtml-htmlview#readme",
   "dependencies": {
+    "buffer": "^5.2.1",
     "entities": "^2.0.0",
     "events": "^3.0.0",
     "htmlparser2": "^3.10.1",
