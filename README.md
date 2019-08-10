@@ -3,17 +3,22 @@ A React Native component which renders HTML content as native views
 
 ## Install
 
-`npm install react-native-orzhtml-htmlview --save
-npm install react-native-video --save`
+`npm install react-native-orzhtml-htmlview --save` or `yarn add react-native-orzhtml-htmlview`
 
-or
+`npm install react-native-video --save` or `yarn add react-native-video`
 
-`yarn add react-native-orzhtml-htmlview
-yarn add react-native-video`
+**For React Native 0.60.0 or higher.**
+
+`npm install react-native-fast-image --save` or `yarn add react-native-fast-image`
+
+**For React Native <= 0.59.x use version 6.1.1 or lower**
+
+`npm install react-native-fast-image@6.1.1 --save` or `yarn add react-native-fast-image@6.1.1`
 
 ## Mostly automatic installation
 
-`react-native link react-native-video`
+`react-native link react-native-video
+react-native link react-native-fast-image`
 
 ## Props
 

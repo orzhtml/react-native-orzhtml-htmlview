@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react'
 import { Image, View, Text } from 'react-native'
 import PropTypes from 'prop-types'
 
+import { CustomImage } from './widget'
+
 export default class HTMLImage extends PureComponent {
   static propTypes = {
     source: PropTypes.object.isRequired,
@@ -138,14 +140,14 @@ export default class HTMLImage extends PureComponent {
     onLoadEnd
   ) => {
     return (
-      <Image
+      <CustomImage
         source={source}
+        resizeMode='cover'
         style={[
           style,
           {
             width: this.state.width,
-            height: this.state.height,
-            resizeMode: 'cover'
+            height: this.state.height
           }
         ]}
         onLoad={onLoad}
