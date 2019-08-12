@@ -1,6 +1,9 @@
 # react-native-orzhtml-htmlview
 A React Native component which renders HTML content as native views
 
+![](https://raw.githubusercontent.com/orzhtml/react-native-orzhtml-htmlview/master/screenshots/1.gif)
+
+
 ## Install
 
 `npm install react-native-orzhtml-htmlview --save` or `yarn add react-native-orzhtml-htmlview`
@@ -17,8 +20,21 @@ A React Native component which renders HTML content as native views
 
 ## Mostly automatic installation
 
-`react-native link react-native-video
-react-native link react-native-fast-image`
+`react-native link react-native-video`
+`react-native link react-native-fast-image`
+
+## Example
+In the react-native-orzhtml-htmlview package directory:
+`cd example
+npm install or yarn
+react-native link
+`
+
+To run example on iOS:
+`react-native run-ios`
+
+To run example on Android:
+`react-native run-android`
 
 ## Props
 
