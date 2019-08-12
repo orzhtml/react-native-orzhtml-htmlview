@@ -21,6 +21,7 @@ A React Native component which renders HTML content as native views
 ## Mostly automatic installation
 
 `react-native link react-native-video`
+
 `react-native link react-native-fast-image`
 
 ## Example
