@@ -33,7 +33,7 @@ In the react-native-orzhtml-htmlview package directory:
 ```
 cd example
 
-npm install or yarn
+npm install // or yarn
 
 react-native link
 ```
