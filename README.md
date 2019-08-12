@@ -25,15 +25,20 @@ A React Native component which renders HTML content as native views
 
 ## Example
 In the react-native-orzhtml-htmlview package directory:
+
 `cd example
+
 npm install or yarn
+
 react-native link
 `
 
 To run example on iOS:
+
 `react-native run-ios`
 
 To run example on Android:
+
 `react-native run-android`
 
 ## Props
