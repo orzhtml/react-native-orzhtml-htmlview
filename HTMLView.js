@@ -1,7 +1,9 @@
 import React from 'react'
 import { Dimensions, StyleSheet, View, ViewPropTypes, Platform } from 'react-native'
 import PropTypes from 'prop-types'
+
 import htmlToElement from './htmlToElement'
+import { setSpText, scaleSize } from './libs/SetSize'
 
 const boldStyle = { fontWeight: 'bold' }
 const italicStyle = { fontStyle: 'italic' }
@@ -22,13 +24,61 @@ const baseStyles = StyleSheet.create({
   pre: codeStyle,
   code: codeStyle,
   a: { fontWeight: 'normal' },
-  h1: { fontWeight: 'bold', fontSize: 36, lineHeight: 36 },
-  h2: { fontWeight: 'bold', fontSize: 30, lineHeight: 32 },
-  h3: { fontWeight: 'bold', fontSize: 24, lineHeight: 26 },
-  h4: { fontWeight: 'bold', fontSize: 18, lineHeight: 22 },
-  h5: { fontWeight: 'bold', fontSize: 14, lineHeight: 20 },
-  h6: { fontWeight: 'bold', fontSize: 12, lineHeight: 18 },
-  video: { minHeight: 260 }
+  h1: { fontWeight: 'bold', fontSize: setSpText(30), lineHeight: scaleSize(32) },
+  h2: { fontWeight: 'bold', fontSize: setSpText(26), lineHeight: scaleSize(28) },
+  h3: { fontWeight: 'bold', fontSize: setSpText(22), lineHeight: scaleSize(24) },
+  h4: { fontWeight: 'bold', fontSize: setSpText(18), lineHeight: scaleSize(22) },
+  h5: { fontWeight: 'bold', fontSize: setSpText(14), lineHeight: scaleSize(20) },
+  h6: { fontWeight: 'bold', fontSize: setSpText(12), lineHeight: scaleSize(18) },
+  video: { minHeight: 260 },
+  ul: {},
+  ol: {},
+  li: {},
+  table: {
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderRightWidth: StyleSheet.hairlineWidth,
+    borderColor: '#333'
+  },
+  caption: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderLeftWidth: StyleSheet.hairlineWidth,
+    paddingHorizontal: scaleSize(5),
+    paddingVertical: scaleSize(3),
+    fontSize: setSpText(14)
+  },
+  thead: {
+  },
+  tbody: {
+  },
+  tfoot: {
+  },
+  tr: {
+  },
+  th: {
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderLeftWidth: StyleSheet.hairlineWidth,
+    borderColor: '#333',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: scaleSize(5),
+    paddingVertical: scaleSize(3)
+  },
+  td: {
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderLeftWidth: StyleSheet.hairlineWidth,
+    borderColor: '#333',
+    paddingHorizontal: scaleSize(5),
+    paddingVertical: scaleSize(3)
+  },
+  thTxt: {
+    fontSize: setSpText(14),
+    fontWeight: 'bold'
+  },
+  tdTxt: {
+    fontSize: setSpText(12)
+  }
 })
 
 class HtmlView extends React.PureComponent {

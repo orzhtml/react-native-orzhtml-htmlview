@@ -1,12 +1,12 @@
 import React from 'react'
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native'
 import htmlparser2 from 'htmlparser2'
 import entities from 'entities'
 import Video from 'react-native-video'
 import { ActionPopover } from 'teaset'
 
-import { setSpText, scaleSize } from './SetSize'
-import * as util from './util'
+import { setSpText, scaleSize } from './libs/SetSize'
+import * as util from './libs/util'
 import HTMLImage from './HTMLImage'
 
 const defaultOpts = {
@@ -77,6 +77,7 @@ export default function htmlToElement (rawHtml, customOpts = {}, done) {
   // dom 转 rn
   function domToElement (dom, parent) {
     if (!dom) return null
+
     return dom.map((node, index) => {
       let NodeComponent = null
       let ShareNewsTextParagraphRand = util.MathRand(6)
@@ -137,7 +138,7 @@ export default function htmlToElement (rawHtml, customOpts = {}, done) {
                 style={styles.mt}
               >
                 <HTMLImage
-                  source={{ uri: node.attribs.src }}
+                  source={{ uri: entities.decodeHTML(node.attribs.src) }}
                   imagesMaxWidth={opts.imgMaxW}
                 />
               </TouchableOpacity>
@@ -342,6 +343,76 @@ export default function htmlToElement (rawHtml, customOpts = {}, done) {
               </View>
             )
             break
+          case 'ul':
+          case 'ol':
+            let orderedListCounter = 1
+
+            NodeComponent = (
+              <View
+                key={nodeKey}
+                style={[styles.mt, util.filtersCss(opts.styles, node)]}
+              >
+                {
+                  node.children.map((item, idx) => {
+                    ShareNewsTextParagraphRand = util.MathRand(3)
+                    const childrenKey = 'childrenKey-' + idx
+                    let listItemPrefix = node.name === 'ul' ? (
+                      <View style={{
+                        marginRight: scaleSize(10),
+                        width: styles[opts.size].fontSize / 2.8,
+                        height: styles[opts.size].fontSize / 2.8,
+                        marginTop: styles[opts.size].fontSize / 2,
+                        borderRadius: styles[opts.size].fontSize / 2.8,
+                        backgroundColor: 'black'
+                      }} />
+                    ) : (
+                      <Text
+                        style={[
+                          { marginRight: scaleSize(5) },
+                          styles[opts.size],
+                          { color: opts.globalColor },
+                          util.filtersCss(opts.styles, item)
+                        ]}
+                      >{ orderedListCounter++ }.</Text>
+                    )
+
+                    return (
+                      <View key={childrenKey} style={{ flexDirection: 'row', marginTop: scaleSize(5) }}>
+                        {listItemPrefix}
+                        <View style={{ flex: 1 }}>
+                          <Text
+                            ref={v =>
+                              (this['ShareNewsTagLParagraph' + idx + ShareNewsTextParagraphRand] = v)
+                            }
+                            style={[
+                              styles[opts.size],
+                              { color: opts.globalColor },
+                              util.filtersCss(opts.styles, item)
+                            ]}
+                            onLongPress={() => {
+                              const text = lineLabelMap(item.children)
+                              // 长按
+                              opts.onLongPress && opts.onLongPress(text)
+                              // 长按显示弹窗
+                              showActionPopover({
+                                view: this['ShareNewsTagLParagraph' + idx + ShareNewsTextParagraphRand],
+                                content: text
+                              })
+                            }}
+                          >{ entities.decodeHTML(item.children[0].data) }</Text>
+                        </View>
+                      </View>
+                    )
+                  })
+                }
+              </View>
+            )
+            break
+          case 'table':
+            NodeComponent = (
+              <TableView key={nodeKey} opts={opts} node={node} />
+            )
+            break
           default:
             NodeComponent = (
               <View key={nodeKey} style={[styles.mt]}>
@@ -418,4 +489,191 @@ export default function htmlToElement (rawHtml, customOpts = {}, done) {
   })
   parser.write(rawHtml ? util.resetHtml(rawHtml) : '')
   parser.done()
+}
+
+/** 渲染 table */
+class TableView extends React.PureComponent {
+  constructor (props) {
+    super(props)
+
+    this.state ={
+      tableWidth: null,
+      tableHeight: null
+    }
+
+    this.first = true
+  }
+
+  _onLayout = (event) => {
+    //获取根View的宽高，以及左上角的坐标值
+    const { x, y, width, height } = event.nativeEvent.layout;
+    // console.log('通过onLayout得到的宽度：', x, y);
+    // console.log('通过onLayout得到的宽度：', width);
+    // console.log('通过onLayout得到的高度：', height);
+    if (this.first) {
+      this.first = false
+      this.setState({
+        tableWidth: Math.ceil(width),
+        tableHeight: Math.ceil(height)
+      })
+    }
+  }
+
+  render () {
+    const { opts, node } = this.props
+    const { tableWidth, tableHeight } = this.state
+
+    return (
+      <ScrollView
+        horizontal={true}
+        style={styles.mt}
+        contentContainerStyle={{
+          paddingVertical: scaleSize(4)
+        }}
+      >
+        <View
+          style={[
+            { flex: 1 },
+            util.filtersCss(opts.styles, node)
+          ]}
+          onLayout={this._onLayout}
+        >
+        {
+          node.children.map((item, idx) => {
+            const childrenKey = 'childrenKey-' + idx
+            let tableItemView = null
+
+            switch (item.name) {
+              case 'caption':
+              tableItemView = (
+                <View
+                  key={childrenKey}
+                  style={[util.filtersCss(opts.styles, item)]}
+                >
+                  <Text style={[
+                    {
+                      color: opts.globalColor
+                    },
+                    util.filtersCss(opts.styles, item)
+                  ]}>
+                    { entities.decodeHTML(item.children[0].data) }
+                  </Text>
+                </View>
+              )
+                break
+              case 'thead':
+              case 'tbody':
+              case 'tfoot':
+                tableItemView = (
+                  <View
+                    key={childrenKey}
+                    style={[util.filtersCss(opts.styles, item)]}
+                  >
+                    {
+                      item.children.map((itm, ix) => {
+                        const childrenTrKey = 'childrenTrKey-' + ix
+                        return (
+                          <View
+                            key={childrenTrKey}
+                            style={[
+                              {
+                                flexDirection: 'row'
+                              },
+                              util.filtersCss(opts.styles, itm)
+                            ]}
+                          >
+                          {
+                            itm.children.map((m, i) => {
+                              const childrenTdKey = 'childrenTdKey-' + i
+                              return (
+                                <View
+                                  key={childrenTdKey}
+                                  style={[
+                                    tableWidth !== null && {
+                                      width: Math.ceil(tableWidth / itm.children.length) + 5
+                                    },
+                                    util.filtersCss(opts.styles, m)
+                                  ]}
+                                >
+                                  <Text
+                                    style={[
+                                      {
+                                        color: opts.globalColor
+                                      },
+                                      opts.styles[m.name + 'Txt']
+                                    ]}
+                                    onLongPress={() => {
+                                      const text = entities.decodeHTML(m.children[0].data)
+                                      // 长按
+                                      opts.onLongPress && opts.onLongPress(text)
+                                    }}
+                                  >
+                                    { entities.decodeHTML(m.children[0].data) }
+                                  </Text>
+                                </View>
+                              )
+                            })
+                          }
+                          </View>
+                        )
+                      })
+                    }
+                  </View>
+                )
+                break
+              case 'tr':
+                tableItemView = (
+                  <View
+                  key={childrenKey}
+                  style={[
+                    {
+                      flexDirection: 'row'
+                    },
+                    util.filtersCss(opts.styles, item)
+                  ]}
+                >
+                {
+                  item.children.map((itm, i) => {
+                    const childrenTdKey = 'childrenTdKey-' + i
+                    return (
+                      <View
+                        key={childrenTdKey}
+                        style={[
+                          tableWidth !== null && {
+                            width: Math.ceil(tableWidth / item.children.length) + 5
+                          },
+                          util.filtersCss(opts.styles, itm)
+                        ]}
+                      >
+                        <Text
+                          style={[
+                            {
+                              color: opts.globalColor
+                            },
+                            opts.styles[itm.name + 'Txt']
+                          ]}
+                          onLongPress={() => {
+                            const text = entities.decodeHTML(itm.children[0].data)
+                            // 长按
+                            opts.onLongPress && opts.onLongPress(text)
+                          }}
+                        >
+                          { entities.decodeHTML(itm.children[0].data) }
+                        </Text>
+                      </View>
+                    )
+                  })
+                }
+                </View>
+                )
+                break
+            }
+
+            return tableItemView
+          })
+        }
+        </View>
+      </ScrollView>
+    )
+  }
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 
 import FastImage from 'react-native-fast-image'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet } from 'react-native'
 
 class Image extends React.Component {
   constructor (props) {
