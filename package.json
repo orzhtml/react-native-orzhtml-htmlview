@@ -37,8 +37,6 @@
     "events": "^3.0.0",
     "htmlparser2": "^3.10.1",
     "prop-types": "^15.7.2",
-    "react-native-fast-image": "6.1.1",
-    "react-native-video": "^5.0.0",
     "teaset": "^0.6.3"
   },
   "devDependencies": {
