@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native'
 import htmlparser2 from 'htmlparser2'
-import entities from 'entities'
+import * as entities from 'entities'
 import Video from 'react-native-video'
 import { ActionPopover } from 'teaset'
 

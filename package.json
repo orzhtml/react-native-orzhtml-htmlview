@@ -1,6 +1,6 @@
 {
   "name": "react-native-orzhtml-htmlview",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A React Native component which renders HTML content as native views",
   "main": "index.js",
   "directories": {
@@ -31,13 +31,18 @@
     "url": "https://github.com/orzhtml/react-native-orzhtml-htmlview/issues"
   },
   "homepage": "https://github.com/orzhtml/react-native-orzhtml-htmlview#readme",
-  "dependencies": {
+  "peerDependencies": {
     "buffer": "^5.2.1",
-    "entities": "^1.1.2",
+    "entities": "^2.0.0",
     "events": "^3.0.0",
     "htmlparser2": "^3.10.1",
-    "prop-types": "^15.7.2",
-    "teaset": "^0.6.3"
+    "prop-types": "*",
+    "react": "*",
+    "react-native": "*",
+    "react-native-fast-image": "*",
+    "react-native-video": "*",
+    "teaset": "*"
+
   },
   "devDependencies": {
     "babel-eslint": "^10.0.2",

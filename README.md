@@ -12,14 +12,14 @@ Welcome everybody fork！！！
 
 `npm install react-native-orzhtml-htmlview --save` or `yarn add react-native-orzhtml-htmlview`
 
-`npm install react-native-video --save` or `yarn add react-native-video`
-
 **For React Native 0.60.0 or higher.**
 
+`npm install react-native-video --save` or `yarn add react-native-video`
 `npm install react-native-fast-image --save` or `yarn add react-native-fast-image`
 
 **For React Native <= 0.59.x use version 6.1.1 or lower**
 
+`npm install react-native-video@4.4.4 --save` or `yarn add react-native-video@4.4.4`
 `npm install react-native-fast-image@6.1.1 --save` or `yarn add react-native-fast-image@6.1.1`
 
 ## Mostly automatic installation
