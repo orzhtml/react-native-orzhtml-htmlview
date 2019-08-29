@@ -1,6 +1,6 @@
 {
   "name": "react-native-orzhtml-htmlview",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A React Native component which renders HTML content as native views",
   "main": "index.js",
   "directories": {
