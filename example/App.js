@@ -11,7 +11,7 @@ import {
 } from 'react-native'
 import { Promise } from 'es6-promise'
 import { getStatusBarHeight } from 'react-native-status-bar-height'
-import HTMLView from './HTMLView'
+import HTMLView from 'react-native-orzhtml-htmlview'
 
 const ios = Platform.OS === 'ios'
 const statusHeight = ios ? getStatusBarHeight() : StatusBar.currentHeight
