@@ -31,12 +31,14 @@
     "url": "https://github.com/orzhtml/react-native-orzhtml-htmlview/issues"
   },
   "homepage": "https://github.com/orzhtml/react-native-orzhtml-htmlview#readme",
-  "peerDependencies": {
+  "dependencies": {
     "buffer": "^5.2.1",
     "entities": "^2.0.0",
     "events": "^3.0.0",
     "htmlparser2": "^3.10.1",
-    "prop-types": "*",
+    "prop-types": "^15.7.2"
+  },
+  "peerDependencies": {
     "react": "*",
     "react-native": "*",
     "react-native-fast-image": "*",
