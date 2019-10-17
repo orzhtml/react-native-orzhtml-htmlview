@@ -15,13 +15,17 @@ Welcome everybody fork！！！
 **For React Native 0.60.0 or higher.**
 
 `npm install react-native-video --save` or `yarn add react-native-video`
+
 `npm install react-native-fast-image --save` or `yarn add react-native-fast-image`
+
 `npm install teaset --save` or `yarn add teaset`
 
 **For React Native <= 0.59.x use version 6.1.1 or lower**
 
 `npm install react-native-video@4.4.4 --save` or `yarn add react-native-video@4.4.4`
+
 `npm install react-native-fast-image@6.1.1 --save` or `yarn add react-native-fast-image@6.1.1`
+
 `npm install teaset@0.6.3 --save` or `yarn add teaset@0.6.3`
 
 ## Mostly automatic installation
@@ -35,7 +39,6 @@ react-native link react-native-fast-image
 ## Example
 
 In the react-native-orzhtml-htmlview package directory:
-
 
 ```
 cd example

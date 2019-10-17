@@ -36,6 +36,8 @@ htmlSource +=
 htmlSource += '</div>'
 htmlSource +=
   '\r\n\r\n\r\n\r\n\r\n航海王巡展亮相上海，值得粉丝去打卡吗？\r\n\r\n\r\n'
+htmlSource += 
+  '<video src="https://kavt.oss-cn-shanghai.aliyuncs.com/VIDEO/HK9.mp4" controls="controls" poster="https://kavt.oss-cn-shanghai.aliyuncs.com/VIDEO/667.png" webkit-playsinline style="width:100%;max-height:100%;"></video>'
 htmlSource +=
   '<p>新华社报道说，在一个半小时的演出中，数万名朝鲜演员通过体操、舞蹈、声乐、杂技等形式多样的表演，展现出朝鲜革命与战争、政治和军队建设、民生与经济发展以及对外交往等历史画卷，赢得观众的热烈掌声。</p>'
 htmlSource +=

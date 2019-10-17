@@ -132,6 +132,7 @@ export default function htmlToElement (rawHtml, customOpts = {}, done) {
             NodeComponent = (
               <TouchableOpacity
                 key={nodeKey}
+                activeOpacity={1}
                 onPress={() => {
                   opts.onImagePress(node.attribs.src)
                 }}
