@@ -263,6 +263,7 @@ export default function htmlToElement (rawHtml, customOpts = {}, done) {
             NodeComponent = (
               <View key={nodeKey} style={util.filtersCss(opts.styles, node)}>
                 <Video
+                  ref={ref => { this['player' + nodeKey] = ref }}
                   controls={true}
                   source={{ uri: node.attribs.src }}
                   style={{ flex: 1 }}
