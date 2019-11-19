@@ -62,6 +62,7 @@ export function checkCssName (cssName) {
 export function resetHtml (html) {
   const regBr = /<br><\/br>/g
   const regBr2 = /<(br|p|div)[^>]*>(\s*|<br\s*?\/?>)?<\/\1>/g
+  const regBr3 = /<br\s*\/?>/gi
   const regSpace = /[\r\n]/g
   const regSpace2 = />\s+</g
 
@@ -70,6 +71,7 @@ export function resetHtml (html) {
     .replace(regBr2, '<br/>')
     .replace(regSpace, '')
     .replace(regSpace2, '><')
+    .replace(regBr3, '\r\n')
 }
 /** 获取随机数 */
 export function MathRand (n) {
@@ -88,6 +90,10 @@ export function checkIsTag (dom) {
         case 'strong':
         case 'span':
         case 'a':
+        case 'i':
+        case 'b':
+        case 'em':
+        case 'code':
           isBlock = false
           break
         default:

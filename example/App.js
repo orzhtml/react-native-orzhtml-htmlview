@@ -53,13 +53,13 @@ htmlSource +=
 htmlSource +=
   '<p class="report-view"><img src="https://kavt.oss-cn-shanghai.aliyuncs.com/caiji/946291-79f84ef8941a146fc915c3da74ee4c0d.jpg"></p>'
 htmlSource +=
-  '\r\n\r\n<p>朝鲜有组织举行大型团体操的传统，曾以参演人数载入吉尼斯世界纪录的大型团体操《阿里郎》是朝鲜团体操的代表作之一。'
+  '\r\n\r\n<p>朝鲜有组织举行大型团体操的传统，<br>曾以参演人数载入吉尼斯世界纪录的大型团体操《阿里郎》是朝鲜团体操的代表作之一。'
 htmlSource +=
-  '2018年，朝鲜为庆祝建国70周年打造了名为《辉煌的祖国》的大型团体操和艺术演出，反映朝鲜建国以来在各领域取得的成就。</p>'
+  '2018年，朝鲜为庆祝建国70周年打造了名为《辉煌的祖国》的大型<br><br>团体操和艺术演出，反映朝鲜建国以来在各领域取得的成就。</p>'
 htmlSource +=
-  '\r\n\r\n<p>6月3日的活动中，金正恩胞妹、朝鲜劳动党中央委员会第一副部长金与正陪同观看了表演。此外，劳动党副委员长金英哲当天也现身观演。</p>'
+  '\r\n\r\n<p>6月3日的活动中，金正恩胞妹、<br><br><br>朝鲜劳动党中央委员会第一副部长金与正陪同观看了表演。此外，劳动党副委员长金英哲当天也现身观演。</p>'
 htmlSource +=
-  '\r\n\r\n<p>此前曾有韩国媒体报道说，为追究越南河内金特会无果而终的责任，“金与正被勒令停职反省”，金英哲“被肃清”、接受“劳改”，'
+  '\r\n\r\n<p>此前曾有韩国媒体报道说，为追究越南河内<br>金特会无果而终<br>的责任，“金与正被勒令停职反省”，金英哲“被肃清”、接受“劳改”，'
 htmlSource +=
   '而两人的现身让这些传言不攻自破。6月2日，金英哲还陪同金正恩一同观看了朝鲜人民军第二届第七次军属艺术小组竞赛获奖节目演出。</p>'
 htmlSource +=
@@ -293,18 +293,18 @@ htmlSource += '</tr>'
 htmlSource += '</table>'
 htmlSource += '<ul>'
 htmlSource += '<li>'
-htmlSource += 'ul > li-1 无序列表测试无序列表测试无序列表测试无序列表测试'
+htmlSource += 'ul > li-1 无序列表测试无序<br>列表测试无<a>带a标签</a>序列表测试无序列表测试'
 htmlSource += '</li>'
 htmlSource += '<li>'
-htmlSource += 'ul > li-2'
+htmlSource += 'ul > li-2 <span>带span标签</span>'
 htmlSource += '</li>'
 htmlSource += '</ul>'
 htmlSource += '<ol>'
 htmlSource += '<li>'
-htmlSource += 'ol > li-1 有序列表测试有序列表测试有序列表测试有序列表测试有序列表测试'
+htmlSource += 'ol > li-1 有序列<i>带i标签</i>表测试有<br>序列表测试有序列表测试<br><br>有序列表测试有序列表测试'
 htmlSource += '</li>'
 htmlSource += '<li>'
-htmlSource += 'ol > li-2'
+htmlSource += 'ol > li-2 <strong>带加粗标签</strong>'
 htmlSource += '</li>'
 htmlSource += '</ol>'
 htmlSource +=
@@ -327,9 +327,9 @@ htmlSource +=
 htmlSource +=
   '<p><strong style="font-size: 16px;color:red;">这是div嵌套p嵌套strong测试</strong>这是div嵌套p测试</p>'
 htmlSource += '<h1>这是div嵌套h1</h1>'
-htmlSource += '<h2>这是div嵌套h2</h2>'
+htmlSource += '<h2>这是div<br>嵌套h2</h2>'
 htmlSource += '<h3>这是div嵌套h3</h3>'
-htmlSource += '<h4>这是div嵌套h4</h4>'
+htmlSource += '<h4>这是div<br><br>嵌套h4</h4>'
 htmlSource += '<h5>这是div嵌套h5</h5>'
 htmlSource += '<h6>这是div嵌套h6</h6>'
 htmlSource += '</div>'

@@ -401,7 +401,7 @@ export default function htmlToElement (rawHtml, customOpts = {}, done) {
                                 content: text
                               })
                             }}
-                          >{ entities.decodeHTML(item.children[0].data) }</Text>
+                          >{ labelTextView(item.children, item) }</Text>
                         </View>
                       </View>
                     )
