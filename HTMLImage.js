@@ -36,7 +36,7 @@ export default class HTMLImage extends PureComponent {
     this.getImageSize()
   }
 
-  componentWillReceiveProps (nextProps) {
+  UNSAFE_componentWillReceiveProps (nextProps) {
     this.getImageSize(nextProps)
   }
 

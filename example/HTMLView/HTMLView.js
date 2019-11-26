@@ -99,7 +99,7 @@ class HtmlView extends React.PureComponent {
     })
   }
 
-  componentWillReceiveProps (nextProps) {
+  UNSAFE_componentWillReceiveProps (nextProps) {
     if (
       this.props.html !== nextProps.html ||
       this.props.stylesheet !== nextProps.stylesheet ||
