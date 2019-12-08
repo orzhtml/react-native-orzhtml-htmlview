@@ -78,6 +78,34 @@ const baseStyles = StyleSheet.create({
   },
   tdTxt: {
     fontSize: setSpText(12)
+  },
+  mt: {
+    marginTop: scaleSize(10)
+  },
+  smallest: {
+    fontSize: setSpText(16),
+    lineHeight: scaleSize(23),
+    letterSpacing: 2
+  },
+  small: {
+    fontSize: setSpText(17),
+    lineHeight: scaleSize(25),
+    letterSpacing: 2
+  },
+  normal: {
+    fontSize: setSpText(18),
+    lineHeight: scaleSize(27),
+    letterSpacing: 2
+  },
+  big: {
+    fontSize: setSpText(19),
+    lineHeight: scaleSize(28.5),
+    letterSpacing: 2
+  },
+  largest: {
+    fontSize: setSpText(20),
+    lineHeight: scaleSize(30),
+    letterSpacing: 2
   }
 })
 
@@ -187,6 +215,7 @@ HtmlView.propTypes = {
 
 HtmlView.defaultProps = {
   onError: console.error.bind(console),
+  // eslint-disable-next-line react/display-name
   RootComponent: element => <View {...element} />,
   fontSize: fontSize,
   imagesMaxWidth: imagesMaxWidth,
