@@ -24,12 +24,12 @@ const baseStyles = StyleSheet.create({
   pre: codeStyle,
   code: codeStyle,
   a: { fontWeight: 'normal' },
-  h1: { fontWeight: 'bold', fontSize: setSpText(30), lineHeight: scaleSize(32) },
-  h2: { fontWeight: 'bold', fontSize: setSpText(26), lineHeight: scaleSize(28) },
-  h3: { fontWeight: 'bold', fontSize: setSpText(22), lineHeight: scaleSize(24) },
-  h4: { fontWeight: 'bold', fontSize: setSpText(18), lineHeight: scaleSize(22) },
-  h5: { fontWeight: 'bold', fontSize: setSpText(14), lineHeight: scaleSize(20) },
-  h6: { fontWeight: 'bold', fontSize: setSpText(12), lineHeight: scaleSize(18) },
+  h1: { fontWeight: 'bold', fontSize: setSpText(28), lineHeight: scaleSize(34) },
+  h2: { fontWeight: 'bold', fontSize: setSpText(24), lineHeight: scaleSize(30) },
+  h3: { fontWeight: 'bold', fontSize: setSpText(20), lineHeight: scaleSize(26) },
+  h4: { fontWeight: 'bold', fontSize: setSpText(16), lineHeight: scaleSize(24) },
+  h5: { fontWeight: 'bold', fontSize: setSpText(14), lineHeight: scaleSize(22) },
+  h6: { fontWeight: 'bold', fontSize: setSpText(12), lineHeight: scaleSize(20) },
   video: { minHeight: 260 },
   ul: {},
   ol: {},
@@ -85,27 +85,32 @@ const baseStyles = StyleSheet.create({
   smallest: {
     fontSize: setSpText(16),
     lineHeight: scaleSize(23),
-    letterSpacing: 2
+    textAlign: 'justify',
+    letterSpacing: 1
   },
   small: {
     fontSize: setSpText(17),
     lineHeight: scaleSize(25),
-    letterSpacing: 2
+    textAlign: 'justify',
+    letterSpacing: 1
   },
   normal: {
     fontSize: setSpText(18),
     lineHeight: scaleSize(27),
-    letterSpacing: 2
+    textAlign: 'justify',
+    letterSpacing: 1
   },
   big: {
     fontSize: setSpText(19),
     lineHeight: scaleSize(28.5),
-    letterSpacing: 2
+    textAlign: 'justify',
+    letterSpacing: 1
   },
   largest: {
     fontSize: setSpText(20),
     lineHeight: scaleSize(30),
-    letterSpacing: 2
+    textAlign: 'justify',
+    letterSpacing: 1
   }
 })
 
