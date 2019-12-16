@@ -46,7 +46,6 @@ export default function htmlToElement (rawHtml, customOpts = {}, done) {
   // dom 转 rn
   function domToElement (dom, parent) {
     if (!dom) return null
-    console.log('opts: ', opts)
     return dom.map((node, index) => {
       let NodeComponent = null
       let ShareNewsTextParagraphRand = util.MathRand(6)
@@ -56,7 +55,6 @@ export default function htmlToElement (rawHtml, customOpts = {}, done) {
         if (checkSpace(node.data)) {
           return null
         }
-        console.log('node: ', node)
         return (
           <Text
             ref={v =>
@@ -66,6 +64,7 @@ export default function htmlToElement (rawHtml, customOpts = {}, done) {
             }
             key={nodeKey}
             style={[opts.styles[opts.size], { color: opts.globalColor }, opts.styles.mt]}
+            suppressHighlighting={!opts.popover || opts.popover.length <= 0}
             onLongPress={() => {
               const text = entities.decodeHTML(node.data)
               // 长按
@@ -132,6 +131,7 @@ export default function htmlToElement (rawHtml, customOpts = {}, done) {
                   { color: opts.globalColor },
                   util.filtersCss(opts.styles, node)
                 ]}
+                suppressHighlighting={!opts.popover || opts.popover.length <= 0}
                 onLongPress={() => {
                   const text = lineLabelMap(node.children)
                   // 长按
@@ -167,6 +167,7 @@ export default function htmlToElement (rawHtml, customOpts = {}, done) {
                       ] = v)
                     }
                     style={[opts.styles[opts.size], { color: opts.globalColor }]}
+                    suppressHighlighting={!opts.popover || opts.popover.length <= 0}
                     onLongPress={() => {
                       const text = lineLabelMap(node.children)
                       // 长按
@@ -205,6 +206,7 @@ export default function htmlToElement (rawHtml, customOpts = {}, done) {
                   ] = v)
                 }
                 key={nodeKey}
+                suppressHighlighting={!opts.popover || opts.popover.length <= 0}
                 onLongPress={() => {
                   const text = lineLabelMap(node.children)
                   // 长按
@@ -292,6 +294,7 @@ export default function htmlToElement (rawHtml, customOpts = {}, done) {
                           const text = entities.decodeHTML(item.children[0].data)
                           opts.onMarkPress && opts.onMarkPress(text)
                         }}
+                        suppressHighlighting={!opts.popover || opts.popover.length <= 0}
                         onLongPress={() => {
                           const text = entities.decodeHTML(item.children[0].data)
                           // 长按
@@ -361,6 +364,7 @@ export default function htmlToElement (rawHtml, customOpts = {}, done) {
                               { color: opts.globalColor },
                               util.filtersCss(opts.styles, item)
                             ]}
+                            suppressHighlighting={!opts.popover || opts.popover.length <= 0}
                             onLongPress={() => {
                               const text = lineLabelMap(item.children)
                               // 长按
@@ -574,6 +578,7 @@ class TableView extends React.PureComponent {
                                           },
                                           opts.styles[m.name + 'Txt']
                                         ]}
+                                        suppressHighlighting={!opts.popover || opts.popover.length <= 0}
                                         onLongPress={() => {
                                           const text = entities.decodeHTML(m.children[0].data)
                                           // 长按
@@ -624,6 +629,7 @@ class TableView extends React.PureComponent {
                                   },
                                   opts.styles[itm.name + 'Txt']
                                 ]}
+                                suppressHighlighting={!opts.popover || opts.popover.length <= 0}
                                 onLongPress={() => {
                                   const text = entities.decodeHTML(itm.children[0].data)
                                   // 长按
