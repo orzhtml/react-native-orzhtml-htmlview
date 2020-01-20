@@ -1,7 +1,6 @@
 import React from 'react'
 
 import FastImage from 'react-native-fast-image'
-import { StyleSheet } from 'react-native'
 
 class Image extends React.Component {
   constructor (props) {
@@ -9,7 +8,6 @@ class Image extends React.Component {
     this.state = {
       imageLoading: true
     }
-    this.errorImgUrl = 'https://reactnativecode.com/wp-content/uploads/2018/01/Error_Img.png'
   }
 
   imageLoadError = () => {
@@ -19,13 +17,10 @@ class Image extends React.Component {
   }
 
   render () {
-    let { source } = this.props
+    let { source, errorImgSource } = this.props
     const { style, resizeMode } = this.props
     const { imageLoading } = this.state
-
-    source = imageLoading ? source : {
-      uri: this.errorImgUrl
-    }
+    source = imageLoading ? source : errorImgSource
 
     return (
       <FastImage
@@ -38,12 +33,5 @@ class Image extends React.Component {
     )
   }
 }
-
-const styles = StyleSheet.create({
-  imageView: {
-    flex: 1,
-    justifyContent: 'center'
-  }
-})
 
 export default Image

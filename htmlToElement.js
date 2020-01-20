@@ -110,6 +110,7 @@ export default function htmlToElement (rawHtml, customOpts = {}, done) {
                 <HTMLImage
                   source={{ uri: entities.decodeHTML(node.attribs.src) }}
                   imagesMaxWidth={opts.imgMaxW}
+                  errorImgSource={opts.errorImgSource}
                 />
               </TouchableOpacity>
             )
@@ -331,7 +332,7 @@ export default function htmlToElement (rawHtml, customOpts = {}, done) {
                   node.children.map((item, idx) => {
                     ShareNewsTextParagraphRand = util.MathRand(3)
                     const childrenKey = 'childrenKey-' + idx
-                    let listItemPrefix = node.name === 'ul' ? (
+                    const listItemPrefix = node.name === 'ul' ? (
                       <View style={{
                         marginRight: scaleSize(10),
                         width: opts.styles[opts.size].fontSize / 2.8,
