@@ -60,6 +60,7 @@ export function checkCssName (cssName) {
 }
 /** 过滤 html */
 export function resetHtml (html) {
+  const regAnnotation = /<!--.*?-->/g
   const regBr = /<br><\/br>/g
   const regBr2 = /<(br|p|div)[^>]*>(\s*|<br\s*?\/?>)?<\/\1>/g
   // const regBr3 = /<br\s*\/?>/gi
@@ -67,6 +68,7 @@ export function resetHtml (html) {
   const regSpace2 = />\s+</g
 
   return html
+    .replace(regAnnotation, '')
     .replace(regBr, '<br/>')
     .replace(regBr2, '<br/>')
     .replace(regSpace, '')
