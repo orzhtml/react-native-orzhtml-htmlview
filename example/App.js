@@ -11,14 +11,18 @@ import {
 } from 'react-native'
 import { Promise } from 'es6-promise'
 import { getStatusBarHeight } from 'react-native-status-bar-height'
-// import HTMLView from 'react-native-orzhtml-htmlview'
-import HTMLView from './HTMLView'
+import Orientation from 'react-native-orientation'
+import { Toast } from 'teaset'
+import { VideoPlayer, defaultVideoHeight, screenWidth, screenHeight } from 'react-native-orzhtml-videoplayer'
+import HTMLView from 'react-native-orzhtml-htmlview'
 
 const ios = Platform.OS === 'ios'
 const statusHeight = ios ? getStatusBarHeight() : StatusBar.currentHeight
 const sw = Dimensions.get('window').width
 
-let htmlSource = '<mark>'
+let htmlSource = '<img src="https://h5benzhou.oss-cn-beijing.aliyuncs.com/houyiniuyueshibao/S1-EQ957_COMMOD_M_20200114150002.jpg" data-enlarge="https://si.wsj.net/public/resources/images/S1-EQ957_COMMOD_M_20200114150002.jpg" alt="" title="中国是全球最大的铜消费国之一，约占全球需求的一半。">'
+htmlSource += '<img srcset="https://si.wsj.net/public/resources/images/OG-DR441_COMMOD_PREVIEW_20200115225034.png 1260w" sizes="1260px" src="https://h5benzhou.oss-cn-beijing.aliyuncs.com/houyiniuyueshibao/OG-DR441_COMMOD_PREVIEW_20200115225034.png" data-enlarge="https://si.wsj.net/public/resources/images/OG-DR441_COMMOD_PREVIEW_20200115225034.png" alt="" title="">'
+htmlSource += '<mark>'
 htmlSource +=
   '<text id="abscasd" style="color: red">朝鲜大型团体操和艺术演出《人民的国家》6月3日晚在平壤五一体育场举行首场表演，朝鲜最高领导人金正恩和数万名观众观看。</text>'
 htmlSource += '<author style="color: #f0f;">——kavt 标注</author>'
@@ -31,14 +35,9 @@ htmlSource +=
   '<div class="article-header"><h1>航海王巡展亮相上海，值得粉丝去打卡吗？</h1></div>'
 htmlSource += '<div class="video-view">'
 htmlSource +=
-  '<div class="video-main" id="gddflvplayer" style="height:380px;">'
-htmlSource +=
-  '<video src="https://kavt.oss-cn-shanghai.aliyuncs.com/VIDEO/1.mp4" controls="controls" poster="https://img3.jiemian.com/101/original/20190603/155956386599084700.jpg" paused="true" style="width:100%;max-height:100%;"></video>'
-htmlSource += '</div>'
+  '<div class="video-main" id="gddflvplayer" style="height:380px;"><video src="https://kavt.oss-cn-shanghai.aliyuncs.com/VIDEO/1.mp4" controls="controls" poster="https://img3.jiemian.com/101/original/20190603/155956386599084700.jpg" paused="true" style="width:100%;max-height:100%;"></video></div>'
 htmlSource +=
   '\r\n\r\n\r\n\r\n\r\n航海王巡展亮相上海，值得粉丝去打卡吗？\r\n\r\n\r\n'
-htmlSource +=
-  '<video src="https://kavt.oss-cn-shanghai.aliyuncs.com/VIDEO/HK9.mp4" controls="controls" poster="https://kavt.oss-cn-shanghai.aliyuncs.com/VIDEO/667.png" paused="false" style="width:100%;max-height:100%;"></video>'
 htmlSource += '      </div></div></div></div>'
 htmlSource +=
   '<p>新华社报道说，在一个半小时的演出中，数万名朝鲜演员通过体操、舞蹈、声乐、杂技等形式多样的表演，展现出朝鲜革命与战争、政治和军队建设、民生与经济发展以及对外交往等历史画卷，赢得观众的热烈掌声。</p>'
@@ -341,8 +340,19 @@ class Example extends React.Component {
     super(props)
     this.state = {
       htmlSource: null,
-      fontSize: 'smallest'
+      fontSize: 'smallest',
+      videoHeight: defaultVideoHeight,
+      isShowVideo: false,
+      videoUrl: null,
+      videoTitle: null,
+      isFullScreen: false
     }
+    this.isStopPlay = null
+  }
+
+  // 页面初始
+  componentWillMount () {
+    Orientation.lockToPortrait()
   }
 
   componentDidMount () {
@@ -375,9 +385,69 @@ class Example extends React.Component {
     console.log('onMarkPress: ', id)
   }
 
+  _onVideoFullScreen = (isFullScreen) => {
+    console.log('onVideoFullScreen: ', isFullScreen)
+    if (isFullScreen) {
+      this.setState({
+        isFullScreen: false
+      })
+      this.VideoPlayer && this.VideoPlayer.updateLayout(screenWidth, screenWidth * 9 / 16, false)
+      Orientation.lockToPortrait()
+    } else {
+      this.setState({
+        isFullScreen: true
+      })
+      this.VideoPlayer && this.VideoPlayer.updateLayout(screenHeight, screenWidth, true)
+      Orientation.lockToLandscapeRight()
+    }
+  }
+
+  _onVideoPlay = (url) => {
+    console.log('onVideoPlay:', url)
+    this.setState({
+      isShowVideo: true,
+      isPaused: false,
+      videoUrl: url
+    }, () => {
+      this.VideoPlayer && this.VideoPlayer.updateVideo(url, 0, '')
+    })
+  }
+
+  _onTapBackButton = (isFullScreen) => {
+    console.log('onTapBackButton isFullScreen: ', isFullScreen)
+    this.setState({
+      isFullScreen: false
+    })
+    this.VideoPlayer && this.VideoPlayer.updateLayout(screenWidth, screenWidth * 9 / 16, false)
+    Orientation.lockToPortrait()
+  }
+
+  _onVideoBuffering = (isBuffering) => {
+    console.log('_onVideoBuffering:', this.isStopPlay, isBuffering)
+    if (this.isStopPlay) {
+      return false
+    }
+    if (!isBuffering) {
+      Toast.message('视频缓冲中...')
+    } else {
+      Toast.hide()
+    }
+  }
+
+  _onPlay = (isPause) => {
+    console.log('isPause:', isPause)
+    this.isStopPlay = isPause
+  }
+
+  _onStopPlay = () => {
+    console.log('视频关闭')
+    Toast.message('视频关闭')
+    this.isStopPlay = true
+  }
+
   render () {
-    const { htmlSource, fontSize } = this.state
-    // console.log(entities.decodeHTML(htmlSource))
+    const { htmlSource, fontSize, isShowVideo, isPaused, isFullScreen, videoUrl, videoTitle } = this.state
+    console.log('isFullScreen:', isFullScreen)
     return (
       <View style={styles.container}>
         <View
@@ -463,6 +533,22 @@ class Example extends React.Component {
           >
             <Text style={{ fontSize: 15, color: 'black' }}>最大</Text>
           </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              backgroundColor: 'red',
+              padding: 10,
+              marginRight: 10
+            }}
+            onPress={() => {
+              let { htmlSource } = this.state
+              htmlSource = '<div>新增html</div>新增其他内容' + htmlSource
+              this.setState({
+                htmlSource: htmlSource
+              })
+            }}
+          >
+            <Text style={{ fontSize: 15, color: 'black' }}>刷新html</Text>
+          </TouchableOpacity>
         </View>
         <ScrollView style={{ paddingHorizontal: 15 }}>
           <HTMLView
@@ -476,6 +562,10 @@ class Example extends React.Component {
             onImagePress={this.onImagePress}
             onLongPress={this.onLongPress}
             onMarkPress={this.onMarkPress}
+            onVideoPlay={this._onVideoPlay}
+            errorImgSource={{
+              uri: 'https://kavt.oss-cn-shanghai.aliyuncs.com/error_img.png'
+            }}
             popover={[
               {
                 title: '微信',
@@ -494,6 +584,51 @@ class Example extends React.Component {
             ]}
           />
         </ScrollView>
+        <TouchableOpacity
+          style={[{
+            backgroundColor: 'rgba(0, 0, 0, 0.4)',
+            position: 'absolute',
+            top: isShowVideo ? 0 : -screenHeight * 2,
+            left: isShowVideo ? 0 : -screenWidth * 2
+          },
+          isShowVideo ? {
+            bottom: 0,
+            right: 0
+          } : null]}
+          activeOpacity={1}
+          onPress={() => {
+            this.setState({
+              isShowVideo: false
+            })
+            this.VideoPlayer && this.VideoPlayer.stopPlay()
+          }}
+        >
+          <TouchableOpacity
+            style={{
+              marginTop: isFullScreen ? 0 : (screenHeight / 2) - (screenWidth * 9 / 16 / 2)
+            }}
+            activeOpacity={1}
+            onPress={() => {
+              return false
+            }}
+          >
+            {
+              videoUrl ? (
+                <VideoPlayer
+                  ref={v => (this.VideoPlayer = v)}
+                  videoURL={videoUrl}
+                  paused={isPaused}
+                  videoTitle={videoTitle}
+                  onChangeOrientation={this._onVideoFullScreen}
+                  onTapBackButton={this._onTapBackButton}
+                  onVideoBuffering={this._onVideoBuffering}
+                  onStopPlay={this._onStopPlay}
+                  onPlay={this._onPlay}
+                />
+              ) : null
+            }
+          </TouchableOpacity>
+        </TouchableOpacity>
       </View>
     )
   }

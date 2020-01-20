@@ -2,8 +2,8 @@ import React from 'react'
 import { Dimensions, StyleSheet, View, ViewPropTypes, Platform } from 'react-native'
 import PropTypes from 'prop-types'
 
-import htmlToElement from './htmlToElement'
 import { setSpText, scaleSize } from './libs/SetSize'
+import HtmlToElement from './HtmlToElement'
 
 const boldStyle = { fontWeight: 'bold' }
 const italicStyle = { fontStyle: 'italic' }
@@ -12,6 +12,89 @@ const strikethroughStyle = { textDecorationLine: 'line-through' }
 const fontSize = 'normal' // 最小(smallest)、小(small)、正常(normal)、大(big)、最大(largest)
 const imagesMaxWidth = Dimensions.get('window').width
 const codeStyle = { fontFamily: Platform.OS === 'ios' ? 'Menlo' : 'monospace' }
+
+class HtmlView extends React.PureComponent {
+  constructor (props) {
+    super(props)
+    this.state = {
+      ...props,
+      styles: {
+        ...baseStyles,
+        ...props.htmlStyles
+      }
+    }
+  }
+
+  componentDidMount () {
+    this.mounted = true
+  }
+
+  UNSAFE_componentWillReceiveProps (nextProps) {
+    if (
+      this.state.html !== nextProps.html ||
+      this.state.fontSize !== nextProps.fontSize
+    ) {
+      this.setState({
+        ...nextProps,
+        styles: {
+          ...baseStyles,
+          ...nextProps.htmlStyles
+        }
+      })
+    }
+  }
+
+  componentWillUnmount () {
+    this.mounted = false
+  }
+
+  render () {
+    const { RootComponent, style } = this.props || {}
+    const { html, styles, fontSize } = this.state
+    if (html) {
+      return (
+        <HtmlToElement {...this.props} html={html} fontSize={fontSize} styles={styles} />
+      )
+    }
+    return (<RootComponent style={style} />)
+  }
+}
+
+HtmlView.propTypes = {
+  onError: PropTypes.func,
+  RootComponent: PropTypes.func,
+  style: ViewPropTypes.style,
+  htmlStyles: PropTypes.object,
+  html: PropTypes.string,
+  fontSize: PropTypes.string,
+  imagesMaxWidth: PropTypes.number,
+  globalColor: PropTypes.string,
+  popover: PropTypes.array,
+  onImagePress: PropTypes.func,
+  onLongPress: PropTypes.func,
+  onMarkPress: PropTypes.func,
+  onVideoPlay: PropTypes.func,
+  errorImgSource: PropTypes.object,
+  debug: PropTypes.bool
+}
+
+HtmlView.defaultProps = {
+  onError: console.error.bind(console),
+  // eslint-disable-next-line react/display-name
+  RootComponent: element => <View {...element} />,
+  html: '',
+  fontSize: fontSize,
+  imagesMaxWidth: imagesMaxWidth,
+  globalColor: '#222',
+  popover: [],
+  onImagePress: () => {},
+  onLongPress: () => {},
+  onMarkPress: () => {},
+  onVideoPlay: () => {},
+  errorImgSource: { uri: 'https://reactnativecode.com/wp-content/uploads/2018/01/Error_Img.png' },
+  debug: false
+}
+
 // 以后做标签样式对照表
 const baseStyles = StyleSheet.create({
   b: boldStyle,
@@ -113,127 +196,5 @@ const baseStyles = StyleSheet.create({
     letterSpacing: 1
   }
 })
-
-class HtmlView extends React.PureComponent {
-  constructor () {
-    super()
-    this.state = {
-      element: null
-    }
-  }
-
-  componentDidMount () {
-    this.mounted = true
-    const { html, fontSize, globalColor } = this.props
-    this.startHtmlRender({
-      html,
-      globalColor,
-      size: fontSize
-    })
-  }
-
-  UNSAFE_componentWillReceiveProps (nextProps) {
-    if (
-      this.props.html !== nextProps.html ||
-      this.props.stylesheet !== nextProps.stylesheet ||
-      this.props.fontSize !== nextProps.fontSize ||
-      this.props.globalColor !== nextProps.globalColor
-    ) {
-      this.startHtmlRender({
-        html: nextProps.html,
-        style: nextProps.stylesheet,
-        size: nextProps.fontSize,
-        globalColor: nextProps.globalColor
-      })
-    }
-  }
-
-  componentWillUnmount () {
-    this.mounted = false
-  }
-
-  startHtmlRender = ({ html, style, size, globalColor }) => {
-    const {
-      stylesheet,
-      onError,
-      imagesMaxWidth,
-      popover,
-      errorImgSource,
-      onImagePress,
-      onLongPress,
-      onMarkPress,
-      debug
-    } = this.props
-
-    if (!html) {
-      this.setState({ element: null })
-    }
-
-    const opts = {
-      styles: { ...baseStyles, ...stylesheet, ...style },
-      size: size,
-      imgMaxW: imagesMaxWidth,
-      popover,
-      errorImgSource,
-      onImagePress,
-      onLongPress,
-      onMarkPress,
-      debug,
-      globalColor
-    }
-
-    htmlToElement(html, opts, (err, element) => {
-      if (err) {
-        onError(err)
-      }
-
-      if (this.mounted) {
-        this.setState({ element })
-      }
-    })
-  };
-
-  render () {
-    const { RootComponent, style } = this.props || {}
-    const { element } = this.state
-
-    if (element) {
-      return <RootComponent style={style}>{element}</RootComponent>
-    }
-    return <RootComponent style={style} />
-  }
-}
-
-HtmlView.propTypes = {
-  onError: PropTypes.func,
-  RootComponent: PropTypes.func,
-  style: ViewPropTypes.style,
-  stylesheet: PropTypes.object,
-  html: PropTypes.string,
-  fontSize: PropTypes.string,
-  imagesMaxWidth: PropTypes.number,
-  popover: PropTypes.array,
-  errorImgSource: PropTypes.object,
-  onImagePress: PropTypes.func,
-  onLongPress: PropTypes.func,
-  onMarkPress: PropTypes.func,
-  debug: PropTypes.bool,
-  globalColor: PropTypes.string
-}
-
-HtmlView.defaultProps = {
-  onError: console.error.bind(console),
-  // eslint-disable-next-line react/display-name
-  RootComponent: element => <View {...element} />,
-  fontSize: fontSize,
-  imagesMaxWidth: imagesMaxWidth,
-  popover: [],
-  errorImgSource: { uri: 'https://reactnativecode.com/wp-content/uploads/2018/01/Error_Img.png' },
-  onImagePress: () => {},
-  onLongPress: () => {},
-  onMarkPress: () => {},
-  debug: false,
-  globalColor: '#222'
-}
 
 export default HtmlView
