@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { Image, View, Text } from 'react-native'
+import { Image, View } from 'react-native'
 import PropTypes from 'prop-types'
 
 import { CustomImage } from './widget'
@@ -9,6 +9,7 @@ export default class HTMLImage extends PureComponent {
     source: PropTypes.object.isRequired,
     alt: PropTypes.string,
     style: Image.propTypes.style,
+    errorImgSource: PropTypes.object,
     imagesMaxWidth: PropTypes.number,
     imagesInitialDimensions: PropTypes.shape({
       width: PropTypes.number,
@@ -41,25 +42,15 @@ export default class HTMLImage extends PureComponent {
   }
 
   get errorImage () {
+    const { imagesMaxWidth, errorImgSource } = this.props
     return (
-      <View
+      <Image
         style={{
-          width: 50,
-          height: 50,
-          borderWidth: 1,
-          borderColor: 'lightgray',
-          overflow: 'hidden',
-          justifyContent: 'center'
+          width: imagesMaxWidth,
+          height: imagesMaxWidth * 9 / 16
         }}
-      >
-        {this.props.alt ? (
-          <Text style={{ textAlign: 'center', fontStyle: 'italic' }}>
-            {this.props.alt}
-          </Text>
-        ) : (
-          false
-        )}
-      </View>
+        source={errorImgSource}
+      />
     )
   }
 
@@ -111,15 +102,18 @@ export default class HTMLImage extends PureComponent {
     Image.getSize(
       source.uri,
       (originalWidth, originalHeight) => {
+        if (originalWidth === 0 || originalHeight === 0) {
+          return this.setState({ error: true })
+        }
         if (!imagesMaxWidth) {
           return this.setState({
             width: originalWidth,
             height: originalHeight
           })
         }
-        const optimalWidth =
-          imagesMaxWidth <= originalWidth ? imagesMaxWidth : originalWidth
-        const optimalHeight = (optimalWidth * originalHeight) / originalWidth
+        const optimalWidth = originalWidth === 0 ? 0 : imagesMaxWidth <= originalWidth ? imagesMaxWidth : originalWidth
+        const optimalHeight = originalHeight === 0 ? 0 : (optimalWidth * originalHeight) / originalWidth
+
         this.setState({
           width: optimalWidth,
           height: optimalHeight,
@@ -137,7 +131,8 @@ export default class HTMLImage extends PureComponent {
     source,
     style,
     onLoad,
-    onLoadEnd
+    onLoadEnd,
+    errorImgSource
   ) => {
     return (
       <CustomImage
@@ -152,18 +147,19 @@ export default class HTMLImage extends PureComponent {
         ]}
         onLoad={onLoad}
         onLoadEnd={onLoadEnd}
+        errorImgSource={errorImgSource}
       />
     )
   };
 
   render () {
-    const { source, style, onLoad, onLoadEnd, imagesMaxWidth } = this.props
+    const { source, style, onLoad, onLoadEnd, errorImgSource } = this.props
     if (this.state.error) {
       return this.errorImage
     }
     if (this.state.indeterminate) {
       return this.placeholderImage
     }
-    return this.validImage(source, style, onLoad, onLoadEnd)
+    return this.validImage(source, style, onLoad, onLoadEnd, errorImgSource)
   }
 }
