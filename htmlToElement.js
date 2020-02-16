@@ -579,7 +579,7 @@ class HtmlToElement extends React.PureComponent {
 
 const imgSource = {
   icon_video_play: require('./image/icon_video_play.png'),
-  video_bg: require('./image/icon_video_play.png')
+  video_bg: require('./image/video_bg.png')
 }
 
 /** 渲染 table */
