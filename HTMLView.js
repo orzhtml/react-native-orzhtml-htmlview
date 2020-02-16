@@ -75,7 +75,7 @@ HtmlView.propTypes = {
   onMarkPress: PropTypes.func,
   onVideoPlay: PropTypes.func,
   errorImgSource: PropTypes.object,
-  videoBg: PropTypes.string,
+  videoBg: PropTypes.object,
   debug: PropTypes.bool
 }
 
@@ -93,7 +93,7 @@ HtmlView.defaultProps = {
   onMarkPress: () => {},
   onVideoPlay: () => {},
   errorImgSource: { uri: 'https://reactnativecode.com/wp-content/uploads/2018/01/Error_Img.png' },
-  videoBg: '',
+  videoBg: null,
   debug: false
 }
 

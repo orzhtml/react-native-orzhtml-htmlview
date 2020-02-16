@@ -331,7 +331,10 @@ class HtmlToElement extends React.PureComponent {
       >
         <Image
           source={source}
-          style={util.getImageSize(imagesMaxWidth)}
+          style={{
+            width: imagesMaxWidth,
+            height: imagesMaxWidth * 9 / 16
+          }}
         />
         <TouchableOpacity
           onPress={() => {
