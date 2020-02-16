@@ -112,3 +112,14 @@ export function filtersCss (styles, parent) {
   const style = StyleSheet.flatten(styles[parent.name]) || {}
   return { ...style }
 }
+
+// 根据宽度显示图片高度
+export function getImageSize (imagesMaxWidth, defaultWidth = 700, defaultHeight = 368) {
+  const optimalWidth = imagesMaxWidth <= defaultWidth ? imagesMaxWidth : defaultWidth
+  const optimalHeight = (optimalWidth * defaultHeight) / defaultWidth
+
+  return {
+    width: optimalWidth,
+    height: optimalHeight
+  }
+}

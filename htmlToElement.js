@@ -314,9 +314,9 @@ class HtmlToElement extends React.PureComponent {
   }
 
   domVideo = (node, index) => {
-    const { styles, onVideoPlay, imagesMaxWidth, errorImgSource } = this.state
+    const { styles, onVideoPlay, imagesMaxWidth, videoBg } = this.state
     const key = 'node_video_' + index
-    let source = errorImgSource
+    let source = videoBg || imgSource.video_bg
 
     if (node.attribs.poster) {
       if (node.attribs.poster.length > 1) {
@@ -329,9 +329,9 @@ class HtmlToElement extends React.PureComponent {
         key={key}
         style={styles.mt}
       >
-        <HTMLImage
+        <Image
           source={source}
-          imagesMaxWidth={imagesMaxWidth}
+          style={util.getImageSize(imagesMaxWidth)}
         />
         <TouchableOpacity
           onPress={() => {
@@ -578,7 +578,8 @@ class HtmlToElement extends React.PureComponent {
 }
 
 const imgSource = {
-  icon_video_play: require('./image/icon_video_play.png')
+  icon_video_play: require('./image/icon_video_play.png'),
+  video_bg: require('./image/icon_video_play.png')
 }
 
 /** 渲染 table */
