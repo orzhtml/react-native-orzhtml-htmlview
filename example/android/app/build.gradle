@@ -138,6 +138,8 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-orientation-locker')
+    implementation project(':@react-native-community_slider')
     implementation project(':react-native-video')
     implementation project(':react-native-fast-image')
     implementation fileTree(dir: "libs", include: ["*.jar"])
