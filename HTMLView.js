@@ -167,6 +167,9 @@ const baseStyles = StyleSheet.create({
   mt: {
     marginTop: scaleSize(10)
   },
+  mb: {
+    marginBottom: scaleSize(30)
+  },
   smallest: {
     fontSize: setSpText(16),
     lineHeight: scaleSize(23),

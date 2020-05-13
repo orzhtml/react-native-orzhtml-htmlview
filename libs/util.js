@@ -61,19 +61,19 @@ export function checkCssName (cssName) {
 /** 过滤 html */
 export function resetHtml (html) {
   const regAnnotation = /<!--.*?-->/g
-  const regBr = /<br><\/br>/g
-  const regBr2 = /<(br|p|div)[^>]*>(\s*|<br\s*?\/?>)?<\/\1>/g
-  // const regBr3 = /<br\s*\/?>/gi
-  const regSpace = /[\r\n]/g
-  const regSpace2 = />\s+</g
+  const regBr = /<br><\/br>/gi
+  const regBr2 = /<(br|p|div)[^>]*>(\s*|<br\s*?\/?>)?<\/\1>/gi
+  const regSpace = /[\r\n\s]*</g
+  const regSpace2 = />[\r\n\s]*/g
+  const regSpace3 = />[\r\n\s]*</g
 
   return html
     .replace(regAnnotation, '')
     .replace(regBr, '<br/>')
     .replace(regBr2, '<br/>')
-    .replace(regSpace, '')
-    .replace(regSpace2, '><')
-    // .replace(regBr3, '\r\n')
+    .replace(regSpace, '<')
+    .replace(regSpace2, '>')
+    .replace(regSpace3, '><')
 }
 /** 获取随机数 */
 export function MathRand (n) {
@@ -102,6 +102,8 @@ export function checkIsTag (dom) {
           isBlock = true
           break
       }
+    } else if (item.type === 'text') {
+      isBlock = false
     }
   })
   return isBlock

@@ -100,18 +100,14 @@ class HtmlToElement extends React.PureComponent {
 
   // 循环嵌套 text
   labelTextView = (dom, parent) => {
-    const { styles, fontSize, globalColor } = this.state
+    const { styles } = this.state
     return dom.map((item, index) => {
       const key = 'tagKey-' + index
       if (item.type === 'text') {
         return (
           <Text
             key={key}
-            style={[
-              styles[fontSize],
-              { color: globalColor },
-              util.filtersCss(styles, parent)
-            ]}
+            style={util.filtersCss(styles, parent)}
           >
             {entities.decodeHTML(item.data)}
           </Text>
@@ -166,7 +162,7 @@ class HtmlToElement extends React.PureComponent {
         <Text
           ref={v => (this[key] = v)}
           key={key}
-          style={[styles[fontSize], { color: globalColor }, styles.mt]}
+          style={[styles[fontSize], { color: globalColor }, styles.mb]}
           suppressHighlighting={!popover || popover.length <= 0}
           onLongPress={() => {
             const text = entities.decodeHTML(node.data)
@@ -205,7 +201,7 @@ class HtmlToElement extends React.PureComponent {
         onPress={() => {
           onImagePress && onImagePress(node.attribs.src)
         }}
-        style={styles.mt}
+        style={styles.mb}
       >
         <HTMLImage
           source={{ uri: entities.decodeHTML(node.attribs.src) }}
@@ -260,7 +256,7 @@ class HtmlToElement extends React.PureComponent {
     } else {
       this.nodeIndex = nodeIndex
       return (
-        <View key={key} style={styles.mt}>
+        <View key={key} style={styles.mb}>
           <Text
             ref={v => (this[keyText] = v)}
             style={[styles[fontSize], { color: globalColor }]}
@@ -303,7 +299,7 @@ class HtmlToElement extends React.PureComponent {
           })
         }}
         style={[
-          styles.mt,
+          styles.mb,
           { color: globalColor },
           util.filtersCss(styles, node)
         ]}
@@ -327,7 +323,7 @@ class HtmlToElement extends React.PureComponent {
     return (
       <View
         key={key}
-        style={styles.mt}
+        style={styles.mb}
       >
         <Image
           source={source}
@@ -370,7 +366,7 @@ class HtmlToElement extends React.PureComponent {
     return (
       <View
         key={key}
-        style={[styles.mt, util.inheritedStyle(node.attribs.style)]}
+        style={[styles.mb, util.inheritedStyle(node.attribs.style)]}
       >
         {node.children.map((item, idx) => {
           let childrenKey = 'node_mark_child_' + idx
@@ -378,7 +374,7 @@ class HtmlToElement extends React.PureComponent {
             return (
               <View
                 key={childrenKey}
-                style={[{ alignItems: 'flex-end' }, styles.mt]}
+                style={[{ alignItems: 'flex-end' }, styles.mb]}
               >
                 <Text
                   style={[
@@ -439,7 +435,7 @@ class HtmlToElement extends React.PureComponent {
     return (
       <View
         key={key}
-        style={[styles.mt, util.filtersCss(styles, node)]}
+        style={[styles.mb, util.filtersCss(styles, node)]}
       >
         {
           node.children.map((item, idx) => {
@@ -556,7 +552,7 @@ class HtmlToElement extends React.PureComponent {
             break
           default:
             NodeComponent = (
-              <View key={nodeKey} style={styles.mt}>
+              <View key={nodeKey} style={styles.mb}>
                 {this.domToElement(node.children, node)}
               </View>
             )
@@ -620,7 +616,7 @@ class TableView extends React.PureComponent {
     return (
       <ScrollView
         horizontal={true}
-        style={opts.styles.mt}
+        style={opts.styles.mb}
         contentContainerStyle={{
           paddingVertical: scaleSize(4)
         }}
